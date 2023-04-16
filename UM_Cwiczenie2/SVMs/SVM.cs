@@ -1,8 +1,6 @@
 ﻿namespace UM_Cwiczenie2.SVMs {
     internal static class SVM {
-        public static void Train(double[][] inputs, int[] outputs, double[] lagrangeMultipliers, double[][] kernelMatrix) {
-            double tolerance = 0.001;
-            double bias = 0;
+        public static void Train(double[][] inputs, int[] outputs, double[] lagrangeMultipliers, double[][] kernelMatrix, double tolerance = 0.001, double bias = 0) {
             while (true) {
                 int numChangedLagrangeMultipliers = 0;
                 for (int i = 0; i < inputs.Length; i++) {
@@ -20,13 +18,11 @@
                         double oldLagrangeMultiplierJ = lagrangeMultipliers[j];
 
                         CalculateBounds(outputs, lagrangeMultipliers, i, j, out double L, out double H);
-
                         if (L == H) {
                             continue;
                         }
 
                         double eta = kernelMatrix[i][i] + kernelMatrix[j][j] - (2 * kernelMatrix[i][j]);
-
                         if (eta <= 0) {
                             continue;
                         }
